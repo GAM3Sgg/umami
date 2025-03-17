@@ -21,7 +21,7 @@ const trackerScriptURL = process.env.TRACKER_SCRIPT_URL;
 const contentSecurityPolicy = [
   `default-src 'self'`,
   `img-src * data:`,
-  `script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.vercel.live`,
+  `script-src 'self' 'unsafe-eval' 'unsafe-inline'`,
   `style-src 'self' 'unsafe-inline'`,
   `connect-src 'self' api.umami.is cloud.umami.is`,
   `frame-ancestors 'self' ${frameAncestors}`,
@@ -91,6 +91,10 @@ const headers = [
     source: TRACKER_SCRIPT,
     headers: trackerHeaders,
   },
+  {
+    source: '/collect-alt',
+    headers: apiHeaders,
+  },
 ];
 
 const rewrites = [];
@@ -103,13 +107,17 @@ if (trackerScriptURL) {
 }
 
 if (collectApiEndpoint) {
+  const normalizedEndpoint = collectApiEndpoint.startsWith('/')
+    ? collectApiEndpoint
+    : `/${collectApiEndpoint}`;
+
   headers.push({
-    source: collectApiEndpoint,
+    source: normalizedEndpoint,
     headers: apiHeaders,
   });
 
   rewrites.push({
-    source: collectApiEndpoint,
+    source: normalizedEndpoint,
     destination: '/api/send',
   });
 }
