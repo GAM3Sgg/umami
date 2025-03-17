@@ -107,17 +107,13 @@ if (trackerScriptURL) {
 }
 
 if (collectApiEndpoint) {
-  const normalizedEndpoint = collectApiEndpoint.startsWith('/')
-    ? collectApiEndpoint
-    : `/${collectApiEndpoint}`;
-
   headers.push({
-    source: normalizedEndpoint,
+    source: collectApiEndpoint,
     headers: apiHeaders,
   });
 
   rewrites.push({
-    source: normalizedEndpoint,
+    source: collectApiEndpoint,
     destination: '/api/send',
   });
 }
