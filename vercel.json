@@ -38,7 +38,7 @@
         },
         {
           "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type"
+          "value": "Content-Type, x-umami-cache"
         },
         {
           "key": "Cross-Origin-Resource-Policy",
