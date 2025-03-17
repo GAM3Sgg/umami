@@ -21,7 +21,7 @@ const trackerScriptURL = process.env.TRACKER_SCRIPT_URL;
 const contentSecurityPolicy = [
   `default-src 'self'`,
   `img-src * data:`,
-  `script-src 'self' 'unsafe-eval' 'unsafe-inline'`,
+  `script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.vercel.live`,
   `style-src 'self' 'unsafe-inline'`,
   `connect-src 'self' api.umami.is cloud.umami.is`,
   `frame-ancestors 'self' ${frameAncestors}`,
@@ -62,26 +62,26 @@ const trackerHeaders = [
 const apiHeaders = [
   {
     key: 'Access-Control-Allow-Origin',
-    value: '*'
+    value: '*',
   },
   {
     key: 'Access-Control-Allow-Headers',
-    value: '*'
+    value: '*',
   },
   {
     key: 'Access-Control-Allow-Methods',
-    value: 'GET, DELETE, POST, PUT'
+    value: 'GET, DELETE, POST, PUT',
   },
   {
     key: 'Access-Control-Max-Age',
-    value: corsMaxAge || '86400'
+    value: corsMaxAge || '86400',
   },
 ];
 
 const headers = [
   {
     source: '/api/:path*',
-    headers: apiHeaders
+    headers: apiHeaders,
   },
   {
     source: '/:path*',
